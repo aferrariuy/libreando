@@ -8,15 +8,17 @@ pip-wheel-metadata/
 # Virtual Environments
 .env
 .venv
+.nodeenv
 env/
 venv/
 ENV/
 
 # Django specific
 db.sqlite3
+db.sqlite3-journal # SQLite journal file
 local_settings.py
 media/
-# staticfiles_build/ # Optional: uncomment if you collect static files here and don't want to commit them
+staticfiles/ # Directory for collected static files
 
 # Instance, logs, and temporary files
 *.log

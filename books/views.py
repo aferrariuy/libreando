@@ -17,4 +17,5 @@ class BookViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category']
     search_fields = ['title', 'author__name']
-    ordering_fields = ['title', 'author__name', 'price']
+    ordering_fields = ['title', 'author__name', 'price', 'created_at']
+    ordering = ['-created_at'] # Default ordering for recent books
