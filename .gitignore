@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Django specific
+db.sqlite3
+local_settings.py
+media/
+# staticfiles_build/ # Optional: uncomment if you collect static files here and don't want to commit them
+
+# Instance, logs, and temporary files
+*.log
+logs/
+instance/
+*~
+*.swp
+*.swo
+
+# Build & Distribution artifacts
+build/
+dist/
+
+# Test & Coverage reports
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Node / JavaScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# package-lock.json # Usually committed, but can be ignored by teams using only yarn.lock or pnpm-lock.yaml
+# yarn.lock # Usually committed
+# pnpm-lock.yaml # Usually committed
+
+# Vite temporary files (if Vite is used at the project root)
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# IDE / Editor specific files
+# JetBrains: .idea
+.idea/
+*.iml
+# VSCode: .vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Secrets and Environment variables
+# .env is already covered by Virtual Environments section
+.env.*
+!.env.example
+!.env.test
+
+# Frontend build output directories (if they appear at the project root)
+# These are often handled by a .gitignore within the frontend directory itself.
+# Uncomment if your project generates these at the root.
+# .output/
+# .vercel/
+# .netlify/
+# .wrangler/
+# /.svelte-kit/ # Note: leading / makes it specific to the root directory
+# Roo files
+*.roo
+*.roomodes
