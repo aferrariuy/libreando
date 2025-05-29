@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-import type { Book, Category } from '$lib/types';
-	import RecentBooks from '$lib/components/RecentBooks.svelte';
-	import FilterSearch from '$lib/components/FilterSearch.svelte';
-	import BookCatalog from '$lib/components/BookCatalog.svelte';
+ 	import { onMount } from 'svelte';
+ import type { Book, Category } from '$lib/types';
+ 	import RecentBooks from '$lib/components/RecentBooks.svelte';
+ 	import FilterSearch from '$lib/components/FilterSearch.svelte';
+ 	import BookCatalog from '$lib/components/BookCatalog.svelte';
 
 	let recentBooks: Book[] = [];
 	let allBooks: Book[] = [];
@@ -78,39 +78,11 @@ import type { Book, Category } from '$lib/types';
 </script>
 
 <style>
-	/* Light mode variables (default) */
-	:root {
-		--background-color: #fff;
-		--text-color: #333;
-		--card-background-color: #f9f9f9;
-		--card-border-color: #ddd;
-		--header-border-color: #eee;
-		--input-background-color: #fff;
-		--input-border-color: #ccc;
-		--input-text-color: #333;
-		--button-background-color: #eee;
-		--button-text-color: #333;
-	}
-
-	/* Dark mode variables */
-	:global(html.dark) {
-		--background-color: #1a1a1a;
-		--text-color: #f0f0f0;
-		--card-background-color: #2a2a2a;
-		--card-border-color: #444;
-		--header-border-color: #333;
-		--input-background-color: #2a2a2a;
-		--input-border-color: #444;
-		--input-text-color: #f0f0f0;
-		--button-background-color: #333;
-		--button-text-color: #f0f0f0;
-	}
-
 	.container {
 		padding: 2rem;
 		background-color: var(--background-color);
 		color: var(--text-color);
-		min-height: 100vh; /* Ensure it takes full viewport height */
+		min-height: 100vh;
 	}
 
 	section {

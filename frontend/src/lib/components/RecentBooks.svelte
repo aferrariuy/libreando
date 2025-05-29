@@ -71,53 +71,6 @@
 </script>
 
 <style>
-    :root {
-        --size-content-1: 12.5rem;
-        --size-4: 1rem;
-        --size-2: 0.5rem;
-        --ratio-portrait: 3/4;
-        --gradient-width: 62.5rem;
-        --carousel-padding-inline: 0.625rem;
-        --button-size: 2.5rem;
-        --button-font-size: 1.5rem;
-
-        --surface-2: #f0f0f0;
-        --surface-3: #ccc;
-        --card-border-color: #ddd;
-        --card-background-color: #fff;
-
-        --shadow-2: 0 3px 6px rgba(0,0,0,0.16);
-        --radius-2: 8px;
-        --radius-button: 50%;
-        --radius-image: 4px;
-
-        --font-antique: 'Georgia', serif;
-        --font-size-base: 1.1rem;
-        --font-size-small: 0.9rem;
-        --text-color: #333;
-        --text-color-light: #666;
-        --link-color: blue;
-
-        --transition-duration: 0.3s;
-        --transition-timing-function: ease-in-out;
-        --ease-spring-4: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-        --button-bg-color: rgba(173, 173, 173, 0.5);
-        --button-hover-bg-color: rgba(0, 0, 0, 0.8);
-        --button-text-color: white;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --surface-2: #333;
-            --surface-3: #555;
-            --card-border-color: #555;
-            --card-background-color: #222;
-            --text-color: #eee;
-            --text-color-light: #bbb;
-        }
-    }
-
     .carousel-container {
         position: relative;
         width: 100%;
@@ -162,7 +115,7 @@
         background-color: var(--button-bg-color);
         color: var(--button-text-color);
         border: none;
-        padding: var(--size-2); /* Usar variable para padding */
+        padding: var(--size-2);
         cursor: pointer;
         z-index: 10;
         border-radius: var(--radius-button);
@@ -193,15 +146,15 @@
         display: flex;
         gap: var(--size-4);
         padding-block: var(--size-2);
-        padding-inline: var(--carousel-padding-inline); /* Añadir padding horizontal para el scroll-padding */
+        padding-inline: var(--carousel-padding-inline);
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-x: contain;
-        scroll-padding-inline: var(--carousel-padding-inline); /* Asegura que el snap se alinee con el padding */
+        scroll-padding-inline: var(--carousel-padding-inline);
 
-        /* Ocultar scrollbar */
+        /* Hide scrollbar */
         &::-webkit-scrollbar {
             display: none;
         }
@@ -214,28 +167,23 @@
         content: '';
         display: block;
         flex-shrink: 0;
-        width: 0; /* Estos se usan para el scroll-padding, no necesitan ancho */
+        width: 0;
     }
 
     .carousel__slide {
         flex: 0 0 auto;
         width: var(--size-content-1);
-
         background: var(--card-background-color);
         padding: var(--size-2);
         text-align: center;
-
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
         aspect-ratio: var(--ratio-portrait);
-
         border: 1px solid var(--surface-3);
         box-shadow: var(--shadow-2);
         border-radius: var(--radius-2);
-
         transition: transform var(--transition-duration) var(--transition-timing-function),
                     opacity var(--transition-duration) var(--transition-timing-function);
         scroll-snap-align: start;
@@ -247,21 +195,22 @@
 
     .carousel__slide img {
         max-width: 100%;
-        height: var(--size-content-1); /* Usar la misma variable para la altura de la imagen */
+        height: var(--size-content-1);
         object-fit: cover;
-        margin-bottom: var(--size-2); /* Usar variable para margin-bottom */
+        margin-bottom: var(--size-2);
         border-radius: var(--radius-image);
     }
+    
     .carousel__slide h3 {
         font-size: var(--font-size-base);
-        margin-bottom: calc(var(--size-2) / 2); /* 0.25rem */
+        margin-bottom: calc(var(--size-2) / 2);
         color: var(--text-color);
     }
+    
     .carousel__slide p {
         font-size: var(--font-size-small);
-        color: var(--text-color-light);
+        color: var(--light-text-color);
     }
-
 </style>
 
 <section id="recent-books">
@@ -301,6 +250,5 @@
 </section>
 
 {#if showPopup && selectedBook}
-
     <BookDetailsPopup book={selectedBook} close={closeBookDetails} />
 {/if}

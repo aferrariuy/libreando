@@ -1,3 +1,7 @@
+<script lang="ts">
+  // No se necesita importar getContext si no se usa darkMode directamente en el script
+</script>
+
 <footer>
   <div class="copyright">
     © {new Date().getFullYear()} Libreando. All rights reserved.
@@ -10,15 +14,14 @@
   </div>
 </footer>
 
-<style>
-  footer {
+<style>  footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: var(--footer-bg, #f0f0f0);
-    color: var(--footer-text, #333);
-    border-top: 1px solid var(--footer-border, #ddd);
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    border-top: 1px solid var(--footer-border);
     text-align: center;
   }
 
@@ -34,12 +37,5 @@
 
   .social-icons svg {
     vertical-align: middle;
-  }
-
-  /* Dark mode styling for the footer */
-  :global(html.dark) footer {
-    --footer-bg: #333;
-    --footer-text: #f0f0f0;
-    --footer-border: #555;
   }
 </style>

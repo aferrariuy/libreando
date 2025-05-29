@@ -1,26 +1,31 @@
-<script lang="ts">
+<script lang="ts">  import '$lib/styles/global.css';
+  import { onMount } from 'svelte';
+  import { darkMode } from '$lib/stores/theme';
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte'; // Import Footer
 
-  let darkMode = false; // State for dark mode
-
-  function toggleTheme() {
-    darkMode = !darkMode;
-    if (darkMode) {
+  // Initialize dark mode on mount
+  onMount(() => {
+    // Apply initial theme state
+    if ($darkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+  });
+
+  function toggleTheme() {
+    darkMode.toggle();
   }
 </script>
 
-<Header {darkMode} onToggleTheme={toggleTheme} /> <!-- Pass toggleTheme as onToggleTheme prop -->
+<Header onToggleTheme={toggleTheme} /> <!-- Pass toggleTheme as onToggleTheme prop -->
 
 <main>
   <slot></slot>
 </main>
 
-<Footer {darkMode} /> <!-- Add Footer and pass darkMode state -->
+<Footer /> <!-- Add Footer -->
 
 <style>
   main {

@@ -1,0 +1,122 @@
+:root {
+  /* Colors */
+  --primary-color: #4a90e2;
+  --secondary-color: #f0f2f5;
+  --text-color: #333;
+  --light-text-color: #555;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --background-color: #ffffff;
+  
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-timing-function: ease-in-out;
+  --ease-spring-4: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Modal */
+  --modal-background: #fff;
+  --modal-overlay: rgba(0, 0, 0, 0.6);
+  
+  /* Cards */
+  --card-border-color: var(--border-color);
+  --card-background-color: #fff;
+  --surface-2: #f0f0f0;
+  --surface-3: #ccc;
+  
+  /* Header */
+  --header-bg: #f0f0f0;
+  --header-text: #333;
+  --header-border-color: var(--border-color);
+  
+  /* Footer */
+  --footer-bg: #f0f0f0;
+  --footer-text: #333;
+  --footer-border: #ddd;
+  
+  /* Forms */
+  --input-border-color: #ccc;
+  --input-background-color: #fff;
+  --input-text-color: var(--text-color);
+  
+  /* Buttons */
+  --button-background-color: #eee;
+  --button-text-color: #333;
+  --button-bg-color: rgba(173, 173, 173, 0.5);
+  --button-hover-bg-color: rgba(0, 0, 0, 0.8);
+    /* Typography */
+  --font-antique: 'Georgia', serif;
+  --font-size-base: 1.1rem;
+  --font-size-small: 0.9rem;
+  --link-color: blue;
+  
+  /* Colors - Price */
+  --price-color: #059669;
+  --success-color: #10b981;
+  
+  /* Layout */
+  --size-content-1: 12.5rem;
+  --size-4: 1rem;
+  --size-2: 0.5rem;
+  --ratio-portrait: 3/4;
+  --gradient-width: 62.5rem;
+  --carousel-padding-inline: 0.625rem;
+  --button-size: 2.5rem;
+  --button-font-size: 1.5rem;
+  
+  /* Borders and Shadows */
+  --shadow-2: 0 3px 6px rgba(0,0,0,0.16);
+  --radius-2: 8px;
+  --radius-button: 50%;
+  --radius-image: 4px;
+}
+
+/* Dark mode theme */
+html.dark {
+  --secondary-color: #333;
+  --text-color: #eee;
+  --light-text-color: #bbb;
+  --border-color: #555;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  --background-color: #1a1a1a;
+  
+  /* Modal dark mode */
+  --modal-background: #333;
+  --modal-overlay: rgba(0, 0, 0, 0.8);
+  
+  /* Cards dark mode */
+  --card-border-color: #555;
+  --card-background-color: #2a2a2a;
+  --surface-2: #333;
+  --surface-3: #555;
+  
+  /* Header dark mode */
+  --header-bg: #333;
+  --header-text: #f0f0f0;
+  --header-border-color: #555;
+  
+  /* Footer dark mode */
+  --footer-bg: #333;
+  --footer-text: #f0f0f0;
+  --footer-border: #555;
+  
+  /* Forms dark mode */
+  --input-border-color: #555;
+  --input-background-color: #2a2a2a;
+  --input-text-color: #eee;
+    /* Buttons dark mode */
+  --button-background-color: #333;
+  --button-text-color: #f0f0f0;
+  
+  /* Colors - Price dark mode */
+  --price-color: #10b981;
+  --success-color: #34d399;
+  
+  /* Shadows dark mode */
+  --shadow-2: 0 3px 6px rgba(255,255,255,0.16);
+}
+
+/* Apply dark mode to body */
+html.dark body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

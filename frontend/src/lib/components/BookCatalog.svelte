@@ -1,9 +1,7 @@
 <script lang="ts">
 
     import type { Book } from '$lib/types';
-    import BookDetailsPopup from '$lib/components/BookDetailsPopup.svelte';
-
-    export let allBooks: Book[];
+    import BookDetailsPopup from '$lib/components/BookDetailsPopup.svelte';    export let allBooks: Book[];
     export let searchTerm: string;
     export let selectedCategory: string;
 
@@ -80,6 +78,5 @@
 </section>
 
 {#if showPopup && selectedBook}
-
     <BookDetailsPopup book={selectedBook} close={closeBookDetails} />
 {/if}
