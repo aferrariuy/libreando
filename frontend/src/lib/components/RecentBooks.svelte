@@ -19,10 +19,6 @@
 
         showLeftGradient = canScrollLeft;
         showRightGradient = canScrollRight;
-
-        console.log('scrollLeft:', scrollLeft, 'clientWidth:', clientWidth, 'scrollWidth:', scrollWidth);
-        console.log('canScrollLeft:', canScrollLeft, 'canScrollRight:', canScrollRight);
-        console.log('showLeftGradient:', showLeftGradient, 'showRightGradient:', showRightGradient);
     }
 
     function scrollCarousel(direction: 'prev' | 'next') {
@@ -60,36 +56,48 @@
 </script>
 
 <style>
-    /* Define CSS variables with fallback values */
     :root {
-        --size-content-1: 200px; /* Example width for a carousel item */
-        --size-4: 1rem; /* Gap between items */
-        --size-2: 0.5rem; /* Padding */
-        --ratio-portrait: 3/4; /* Aspect ratio for carousel items */
-        --surface-2: #f0f0f0; /* Light background for items */
-        --surface-3: #ccc; /* Light border for items */
-        --shadow-2: 0 3px 6px rgba(0,0,0,0.16); /* Subtle shadow */
-        --radius-2: 8px; /* Border radius */
-        --font-antique: 'Georgia', serif; /* Example font */
-        --font-size-5: 1.5rem; /* Base font size for text in slide */
-        --font-size-7: 2.5rem; /* Larger font size for snapped text */
-        --ease-spring-4: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Spring-like transition */
-        --link: blue; /* Color for snapped text */
+        --size-content-1: 12.5rem;
+        --size-4: 1rem;
+        --size-2: 0.5rem;
+        --ratio-portrait: 3/4;
+        --gradient-width: 62.5rem;
+        --carousel-padding-inline: 0.625rem;
+        --button-size: 2.5rem;
+        --button-font-size: 1.5rem;
 
-        /* Theme-related variables from previous version, for consistency */
+        --surface-2: #f0f0f0;
+        --surface-3: #ccc;
         --card-border-color: #ddd;
         --card-background-color: #fff;
+
+        --shadow-2: 0 3px 6px rgba(0,0,0,0.16);
+        --radius-2: 8px;
+        --radius-button: 50%;
+        --radius-image: 4px;
+
+        --font-antique: 'Georgia', serif;
+        --font-size-base: 1.1rem;
+        --font-size-small: 0.9rem;
         --text-color: #333;
         --text-color-light: #666;
+        --link-color: blue;
+
+        --transition-duration: 0.3s;
+        --transition-timing-function: ease-in-out;
+        --ease-spring-4: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        --button-bg-color: rgba(173, 173, 173, 0.5);
+        --button-hover-bg-color: rgba(0, 0, 0, 0.8);
+        --button-text-color: white;
     }
 
-    /* Dark mode adjustments for consistency with previous theme */
     @media (prefers-color-scheme: dark) {
         :root {
             --surface-2: #333;
             --surface-3: #555;
             --card-border-color: #555;
-            --card-background-color: #222; /* Used by gradients */
+            --card-background-color: #222;
             --text-color: #eee;
             --text-color-light: #bbb;
         }
@@ -98,7 +106,7 @@
     .carousel-container {
         position: relative;
         width: 100%;
-        overflow: hidden; /* Keeps gradients contained if they were to overflow */
+        overflow: hidden;
     }
 
     .carousel-container::before,
@@ -107,21 +115,21 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 1000px; /* Ancho del gradiente, debe coincidir con scroll-padding */
-        pointer-events: none; /* Permite hacer clic a través del gradiente */
-        z-index: 5; /* Asegura que el gradiente esté sobre el carrusel pero debajo de los botones */
-        opacity: 0; /* Inicialmente oculto */
-        transition: opacity 0.3s ease-in-out;
+        width: var(--gradient-width);
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        transition: opacity var(--transition-duration) var(--transition-timing-function);
     }
 
     .carousel-container::before {
         left: 0;
-        background: radial-gradient(ellipse 50% 100% at left, var(--card-background-color) 0%, transparent 70%); /* Gradiente ovalado a la izquierda, más suave y menos recto */
+        background: radial-gradient(ellipse 50% 100% at left, var(--card-background-color) 0%, transparent 70%);
     }
 
     .carousel-container::after {
         right: 0;
-        background: radial-gradient(ellipse 50% 100% at right, var(--card-background-color) 0%, transparent 70%); /* Gradiente ovalado a la derecha, más suave y menos recto */
+        background: radial-gradient(ellipse 50% 100% at right, var(--card-background-color) 0%, transparent 70%);
     }
 
     .carousel-container.show-left-gradient::before {
@@ -136,84 +144,76 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
         border: none;
-        padding: 0.75rem; /* Increased padding */
+        padding: var(--size-2); /* Usar variable para padding */
         cursor: pointer;
         z-index: 10;
-        border-radius: 50%; /* Make buttons circular */
-        width: 40px; /* Fixed width */
-        height: 40px; /* Fixed height */
+        border-radius: var(--radius-button);
+        width: var(--button-size);
+        height: var(--button-size);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem; /* Larger icon/text */
-        line-height: 1; /* Ensure text is centered vertically */
-        transition: background-color 0.3s ease;
+        font-size: var(--button-font-size);
+        line-height: 1;
+        transition: background-color var(--transition-duration) var(--transition-timing-function);
     }
 
     .carousel-button:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: var(--button-hover-bg-color);
     }
 
     .carousel-button.prev {
-        left: 10px;
+        left: var(--carousel-padding-inline);
     }
 
     .carousel-button.next {
-        right: 10px;
+        right: var(--carousel-padding-inline);
     }
 
     .carousel {
-        width: 100%; /* Use standard width for debugging */
+        width: 100%;
+        display: flex;
+        gap: var(--size-4);
+        padding-block: var(--size-2);
+        padding-inline: var(--carousel-padding-inline); /* Añadir padding horizontal para el scroll-padding */
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scroll-padding-inline: var(--carousel-padding-inline); /* Asegura que el snap se alinee con el padding */
 
-        display: flex; /* Use flexbox for simpler layout */
-        gap: var(--size-4); /* Gap between items */
-        
-        /* Remove direct inline padding from the carousel itself */
-        padding-left: 0;
-        padding-right: 0;
-        padding-block: var(--size-2); /* Vertical padding */
-        
-        /* scroll-padding defines the optimal viewing region for scroll snapping. */
-
-       
-        overflow-x: scroll; /* Enable horizontal scrolling */
-        scroll-snap-type: x mandatory; /* Snap to items */
-        scroll-behavior: smooth; /* Smooth scrolling */
-        -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
-        overscroll-behavior-x: contain; /* Prevent page scroll when carousel edge is reached */
-
-        /* Hide scrollbar for Chrome, Safari and Opera */
+        /* Ocultar scrollbar */
         &::-webkit-scrollbar {
             display: none;
         }
-        /* Hide scrollbar for IE, Edge and Firefox */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 
-    .carousel::before, /* Added ::before rule */
+    .carousel::before,
     .carousel::after {
         content: '';
         display: block;
-        flex-shrink: 0; /* Prevent this spacer from shrinking */
-        width: 0;   /* Aumentado para cubrir más la tarjeta */
+        flex-shrink: 0;
+        width: 0; /* Estos se usan para el scroll-padding, no necesitan ancho */
     }
 
     .carousel__slide {
-        flex: 0 0 auto; /* Prevent items from shrinking */
-        width: 200px; /* Fixed width for debugging */
+        flex: 0 0 auto;
+        width: var(--size-content-1);
 
         background: var(--card-background-color);
-        padding: 0.5rem; /* Added padding to match previous design */
-        text-align: center; /* Centered text */
+        padding: var(--size-2);
+        text-align: center;
 
-        display: flex; /* Use flexbox for internal content */
-        flex-direction: column; /* Arrange content vertically */
-        align-items: center; /* Center items horizontally */
-        justify-content: center; /* Center items vertically */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
         aspect-ratio: var(--ratio-portrait);
 
@@ -221,29 +221,30 @@
         box-shadow: var(--shadow-2);
         border-radius: var(--radius-2);
 
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transform and opacity on hover/focus */
-        scroll-snap-align: start; /* Ensure items snap to the start */
+        transition: transform var(--transition-duration) var(--transition-timing-function),
+                    opacity var(--transition-duration) var(--transition-timing-function);
+        scroll-snap-align: start;
     }
 
     .carousel__slide:hover {
-        transform: translateY(-5px); /* Lift effect on hover */
+        transform: translateY(-5px);
     }
 
     .carousel__slide img {
         max-width: 100%;
-        height: 200px; /* Fixed height for images */
-        object-fit: cover; /* Ensure images cover the area */
-        margin-bottom: 0.5rem;
-        border-radius: 4px;
+        height: var(--size-content-1); /* Usar la misma variable para la altura de la imagen */
+        object-fit: cover;
+        margin-bottom: var(--size-2); /* Usar variable para margin-bottom */
+        border-radius: var(--radius-image);
     }
     .carousel__slide h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
+        font-size: var(--font-size-base);
+        margin-bottom: calc(var(--size-2) / 2); /* 0.25rem */
         color: var(--text-color);
     }
     .carousel__slide p {
-        font-size: 0.9rem;
-        color: var(--text-color-light); /* Lighter text for author */
+        font-size: var(--font-size-small);
+        color: var(--text-color-light);
     }
 
 </style>
