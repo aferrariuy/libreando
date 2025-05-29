@@ -1,9 +1,24 @@
 <script lang="ts">
+
     import type { Book } from '$lib/types';
+    import BookDetailsPopup from '$lib/components/BookDetailsPopup.svelte';
 
     export let allBooks: Book[];
     export let searchTerm: string;
     export let selectedCategory: string;
+
+    let showPopup: boolean = false;
+    let selectedBook: Book | null = null;
+
+    function openBookDetails(book: Book) {
+        selectedBook = book;
+        showPopup = true;
+    }
+
+    function closeBookDetails() {
+        showPopup = false;
+        selectedBook = null;
+    }
 </script>
 
 <style>
@@ -47,12 +62,13 @@
     {#if allBooks.length > 0}
         <div class="book-catalog">
             {#each allBooks as book (book.id)}
-                <div class="book-card">
+
+                <button class="book-card" on:click={() => openBookDetails(book)}>
                     <img src="{book.cover_image}" alt="{book.title}" />
                     <h3>{book.title}</h3>
                     <p>Autor: {book.author.name}</p>
                     <p>Precio: ${book.price}</p>
-                </div>
+                </button>
             {/each}
         </div>
     {:else if searchTerm || selectedCategory}
@@ -60,4 +76,10 @@
     {:else}
         <p>Cargando catálogo de libros...</p>
     {/if}
+
 </section>
+
+{#if showPopup && selectedBook}
+
+    <BookDetailsPopup book={selectedBook} close={closeBookDetails} />
+{/if}

@@ -1,9 +1,24 @@
 <script lang="ts">
     console.log('RecentBooks.svelte script loaded');
+
     import type { Book } from '$lib/types';
     import { onMount } from 'svelte';
+    import BookDetailsPopup from '$lib/components/BookDetailsPopup.svelte';
 
     export let recentBooks: Book[];
+
+    let showPopup: boolean = false;
+    let selectedBook: Book | null = null;
+
+    function openBookDetails(book: Book) {
+        selectedBook = book;
+        showPopup = true;
+    }
+
+    function closeBookDetails() {
+        showPopup = false;
+        selectedBook = null;
+    }
 
     let carouselElement: HTMLElement;
     let showLeftGradient = false;
@@ -263,11 +278,12 @@
             </button>
             <div class="carousel" aria-live="polite" bind:this={carouselElement}>
                 {#each recentBooks as book (book.id)}
-                    <div class="carousel__slide" tabindex="0" data-label="Book {book.id}">
+
+                    <button class="carousel__slide" tabindex="0" data-label="Book {book.id}" on:click={() => openBookDetails(book)}>
                         <img src="{book.cover_image}" alt="{book.title}" />
                         <h3>{book.title}</h3>
                         <p>{book.author.name}</p>
-                    </div>
+                    </button>
                 {/each}
             </div>
             <button
@@ -281,4 +297,10 @@
     {:else}
         <p>Cargando libros recientes...</p>
     {/if}
+
 </section>
+
+{#if showPopup && selectedBook}
+
+    <BookDetailsPopup book={selectedBook} close={closeBookDetails} />
+{/if}

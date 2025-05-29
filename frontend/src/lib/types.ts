@@ -16,5 +16,6 @@ export interface Book {
     price: string;
     description: string;
     cover_image: string; // URL from Cloudinary
+    genre: string;
     created_at: string;
 }
