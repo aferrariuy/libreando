@@ -25,8 +25,6 @@ import os
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('books.urls')),
-    # Specific static assets for Svelte's _app directory should be defined before the general catch-all
-    # This is often handled by the DEBUG block, but we can be explicit if needed or adjust the DEBUG block logic.
 ]
 
 if settings.DEBUG:
@@ -59,5 +57,5 @@ if settings.DEBUG:
 
 # Catch-all for Svelte SPA routing - this MUST BE THE LAST regular pattern
 urlpatterns += [
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+    re_path(r'^(?!(admin|static|_app|api)(/|$))[^\.]*$', TemplateView.as_view(template_name='index.html')),
 ]

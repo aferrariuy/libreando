@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--!ew6hqqhu5pblc*3&z*+ai9&zt+yw^8+6spe29dpw4)f2!kbr'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'a-very-secret-key-for-development-only')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', '0.0.0.0']
+if os.environ.get('DJANGO_ALLOWED_HOSTS'):
+    ALLOWED_HOSTS.extend(os.environ.get('DJANGO_ALLOWED_HOSTS').split(','))
 
 
 # Application definition
@@ -83,11 +85,13 @@ WSGI_APPLICATION = 'libreando.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'),
+        conn_max_age=600
+    )
 }
 
 
@@ -150,9 +154,12 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
+    'http://localhost:3000', # Puerto del frontend en Docker
+    'http://127.0.0.1:3000', # Puerto del frontend en Docker
 ]
+# Añadir el origen del frontend si se despliega en un dominio diferente
+if os.environ.get('FRONTEND_URL'):
+    CORS_ALLOWED_ORIGINS.append(os.environ.get('FRONTEND_URL'))
 
 # Optionally, allow all origins during development (uncomment to use)
 # CORS_ALLOW_ALL_ORIGINS = True

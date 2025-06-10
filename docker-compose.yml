@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=libreando
+      - POSTGRES_USER=libreando
+      - POSTGRES_PASSWORD=libreando
+    volumes:
+      - libreando-db:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      - DJANGO_SETTINGS_MODULE=libreando.settings
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  libreando-db:
