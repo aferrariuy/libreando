@@ -6,32 +6,46 @@ FROM python:3.12-slim-bullseye
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar el archivo de requisitos e instalar las dependencias
-# Aunque el requirements.txt no se pudo leer, lo copiamos para que el usuario pueda actualizarlo si es necesario.
-COPY requirements.txt .
-RUN apt-get update && apt-get install -y libpq-dev gcc
+# Instalar dependencias del sistema necesarias para PostgreSQL y Node.js
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
+# Copiar y instalar dependencias de Python (para aprovechar cache de Docker)
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Instalar Node.js y npm para construir el frontend
-RUN apt-get update && apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g npm@latest
+# Copiar package.json del frontend primero (para aprovechar cache de Docker)
+COPY frontend/package*.json ./frontend/
+WORKDIR /app/frontend
+RUN npm install
 
-# Copiar todo el código de la aplicación al contenedor
+# Copiar todo el código de la aplicación
+WORKDIR /app
 COPY . .
 
-# Instalar dependencias y construir el frontend
+# Construir el frontend (esto debe hacerse después de copiar todo el código)
 WORKDIR /app/frontend
-RUN npm install && npm run build
+RUN npm run build
 
 # Volver al directorio del backend
 WORKDIR /app
 
+# Crear usuario no-root para seguridad y configurar permisos
+RUN useradd --create-home --shell /bin/bash app \
+    && chmod +x /app/entrypoint.sh \
+    && chown -R app:app /app
+
 # Exponer el puerto en el que Gunicorn escuchará
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación Django con Gunicorn
-# Asegúrate de que 'libreando.wsgi' sea la ruta correcta a tu archivo WSGI
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "libreando.wsgi"]
+USER app
+
+# Comando para ejecutar el script de inicio
+CMD ["/app/entrypoint.sh"]

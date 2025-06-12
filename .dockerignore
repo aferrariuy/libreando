@@ -1,0 +1,50 @@
+# Archivos y directorios a ignorar durante el build de Docker
+
+# Node modules del frontend (se instalarán durante el build)
+frontend/node_modules
+frontend/.svelte-kit
+frontend/build
+
+# Python cache y archivos temporales
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+.pytest_cache
+
+# Base de datos local
+*.sqlite3
+db.sqlite3
+
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+*.log
+
+# Git
+.git
+.gitignore
+
+# Editor/IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Otros
+README.md
