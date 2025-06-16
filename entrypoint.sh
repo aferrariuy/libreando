@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e
 
+echo "Configurando variables de entorno del frontend..."
+# Crear archivo .env para el frontend con variables de Render
+cat > frontend/.env << EOF
+PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL:-http://localhost:8000}
+EOF
+
+echo "Reconstruyendo frontend con variables de entorno..."
+cd frontend
+npm run build
+cd ..
+
 echo "Esperando a que la base de datos esté lista..."
 python -c "
 import django
