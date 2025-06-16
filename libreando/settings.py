@@ -33,9 +33,9 @@ ALLOWED_HOSTS = []
 if os.environ.get('ALLOWED_HOSTS'):
     ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 elif not DEBUG:
-    ALLOWED_HOSTS = ['libreando.onrender.com']
+    ALLOWED_HOSTS = ['*.onrender.com']
 else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.onrender.com']
 
 
 # Application definition
