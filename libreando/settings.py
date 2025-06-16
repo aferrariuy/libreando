@@ -160,6 +160,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:3000', # Puerto del frontend en Docker
     'http://127.0.0.1:3000', # Puerto del frontend en Docker
+    'https://libreando.onrender.com',  # Dominio de producción
 ]
 # Añadir el origen del frontend si se despliega en un dominio diferente
 if os.environ.get('FRONTEND_URL'):
