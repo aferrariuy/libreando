@@ -4,6 +4,7 @@
  	import RecentBooks from '$lib/components/RecentBooks.svelte';
  	import FilterSearch from '$lib/components/FilterSearch.svelte';
  	import BookCatalog from '$lib/components/BookCatalog.svelte';
+	import { env } from '$env/dynamic/public';
 
 	let recentBooks: Book[] = [];
 	let allBooks: Book[] = [];
@@ -12,7 +13,7 @@
 	let searchTerm = '';
 	let selectedCategory = ''; // Store category ID
 
-	const API_BASE_URL = 'http://localhost:8000'; // Your Django API base URL
+	const API_BASE_URL = env.PUBLIC_API_BASE_URL || 'http://localhost:8000';
 
 	async function fetchRecentBooks() {
 		try {
