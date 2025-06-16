@@ -43,7 +43,7 @@ RUN useradd --create-home --shell /bin/bash app \
     && chown -R app:app /app
 
 # Exponer el puerto en el que Gunicorn escuchará
-EXPOSE 8000
+EXPOSE ${PORT}
 
 USER app
 
