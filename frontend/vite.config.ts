@@ -3,5 +3,5 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	envDir: '../' 
+	envDir: './' // Look for .env files in the current directory
 });

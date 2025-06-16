@@ -2,14 +2,23 @@
 set -e
 
 echo "Configurando variables de entorno del frontend..."
+
+# Asegurar que PUBLIC_API_BASE_URL esté disponible para el build
+export PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL:-http://localhost:8000}
+
 # Crear archivo .env para el frontend con variables de Render
 cat > frontend/.env << EOF
-PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL:-http://localhost:8000}
+PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL}
 EOF
+
+echo "PUBLIC_API_BASE_URL configurado como: ${PUBLIC_API_BASE_URL}"
 
 echo "Reconstruyendo frontend con variables de entorno..."
 cd frontend
-npm run build
+npm install
+
+# Construir con la variable de entorno disponible
+PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL} npm run build
 cd ..
 
 echo "Esperando a que la base de datos esté lista..."
