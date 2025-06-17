@@ -1,8 +1,7 @@
 <script lang="ts">
-    console.log('RecentBooks.svelte script loaded');
 
     import type { Book } from '$lib/types';
-    import { onMount } from 'svelte';
+    import { onDestroy } from 'svelte';
     import BookDetailsPopup from '$lib/components/BookDetailsPopup.svelte';
 
     export let recentBooks: Book[];
@@ -39,33 +38,23 @@
     function scrollCarousel(direction: 'prev' | 'next') {
         if (!carouselElement) return;
 
-        const scrollAmount = carouselElement.clientWidth; // Scroll by the visible width of the carousel
+        const scrollAmount = carouselElement.clientWidth;
 
         if (direction === 'prev') {
             carouselElement.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         } else {
             carouselElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
-        // The 'scroll' event listener on carouselElement will handle updating gradients
     }
 
-    onMount(() => {
-        console.log('onMount: carouselElement', carouselElement);
+    $: if (carouselElement) {
+        carouselElement.addEventListener('scroll', updateGradientVisibility);
+        updateGradientVisibility();
+    }
+
+    onDestroy(() => {
         if (carouselElement) {
-            carouselElement.addEventListener('scroll', updateGradientVisibility);
-            // Initial check
-            updateGradientVisibility();
-        } else {
-            console.log('onMount: carouselElement is undefined, retrying after a short delay');
-            // Fallback if carouselElement is not immediately available
-            setTimeout(() => {
-                if (carouselElement) {
-                    carouselElement.addEventListener('scroll', updateGradientVisibility);
-                    updateGradientVisibility();
-                } else {
-                    console.error('carouselElement is still undefined after retry');
-                }
-            }, 100); // Retry after 100ms
+            carouselElement.removeEventListener('scroll', updateGradientVisibility);
         }
     });
 </script>

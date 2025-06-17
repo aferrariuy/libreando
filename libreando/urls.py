@@ -39,17 +39,12 @@ if settings.DEBUG:
     # if they are referenced like /static/file.js
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-    # Serve favicon.png from the root of frontend/build (if it's there and not handled by _app or STATIC_URL)
-    # Or ensure it's in your STATICFILES_DIRS and accessed via /static/favicon.png
-    # For simplicity, if favicon is in frontend/build, it might be served by the catch-all if not specifically routed.
-    # If you have a favicon.png at os.path.join(settings.BASE_DIR, 'frontend', 'build', 'favicon.png')
-    # and want to serve it from the root URL:
-    # urlpatterns += [
-    #    re_path(r'^favicon\.png$', serve, {
-    #        'document_root': os.path.join(settings.BASE_DIR, 'frontend', 'build'),
-    #        'path': 'favicon.png',
-    #    }),
-    # ]
+    urlpatterns += [
+        re_path(r'^favicon\.png$', serve, {
+            'document_root': os.path.join(settings.BASE_DIR, 'frontend', 'static'),
+            'path': 'favicon.png',
+        }),
+    ]
 
     # Handle MEDIA files if configured
     if hasattr(settings, 'MEDIA_URL') and hasattr(settings, 'MEDIA_ROOT') and settings.MEDIA_URL and settings.MEDIA_ROOT:
